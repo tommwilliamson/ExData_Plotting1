@@ -9,9 +9,9 @@ gsub("?",NA,sub_data, fixed = TRUE)
 dateTime <- paste(sub_data$Date,sub_data$Time)
 dateTime <- strptime(dateTime,"%d/%m/%Y %H:%M:%S")
 
-
 # Create the first graph
 png(filename="plot1.png",width = 480, height = 480)
+par(bg=NA)
 hist(as.numeric(sub_data$Global_active_power),col="red",main="Global Active Power", 
      xlab="Global Active Power (kilowatts)", cex.lab=0.9, cex.axis=0.9)
 dev.off()
@@ -19,6 +19,7 @@ dev.off()
 
 # Create the second graph
 png(filename="plot2.png",width = 480, height = 480)
+par(bg=NA)
 plot(dateTime,as.numeric(sub_data$Global_active_power), type='l',
      xlab="",  ylab="Global Active Power (kilowatts)")
 dev.off()
@@ -27,14 +28,13 @@ dev.off()
 
 # Create the third graph
 png(filename="plot3.png",width = 480, height = 480)
+par(bg=NA)
 plot(dateTime,as.numeric(sub_data$Sub_metering_1),
      xlab="",  ylab="Energy sub metering",type='n')
 points(dateTime,as.numeric(sub_data$Sub_metering_1), type='l',
      xlab="",  ylab="Energy sub metering")
-points(dateTime, as.numeric(sub_data$Sub_metering_2), axes = FALSE, 
-     xlab = "", ylab = "", col="red", type='l')
-points(dateTime, as.numeric(sub_data$Sub_metering_3), axes = FALSE, 
-     xlab = "", ylab = "", col="blue", type='l')
+points(dateTime, as.numeric(sub_data$Sub_metering_2), col="red", type='l')
+points(dateTime, as.numeric(sub_data$Sub_metering_3), col="blue", type='l')
 legend("topright", legend = names(sub_data)[grep('Sub_metering',names(sub_data))],
        col=c("Black","Red","Blue"),lty=1)
 dev.off()
@@ -44,6 +44,7 @@ dev.off()
 # Create the last graph
 png(filename="plot4.png",width = 480, height = 480)
 par(mfrow=c(2,2))
+par(bg=NA)
 
 plot(dateTime,as.numeric(sub_data$Global_active_power), type='l',
      xlab="",  ylab="Global Active Power (kilowatts)")
